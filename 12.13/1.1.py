@@ -1,34 +1,31 @@
-
-
+# ДОБАВИТЬ здесь и далее: документацию для классов, свойств и методов (кроме специальных)
 class ClassText:
+    # ДОБАВИТЬ здесь и далее: аннотации параметров и возвращаемых значений методов
     def __init__(self, class_name = '', value = ''):
         self.class_name = class_name
         self.value = value
-        self.__nested = []
+        self.__fields = []
 
     @property
-    def nested(self):
-        return self.__nested
+    def fields(self):
+        return self.__fields
 
-    @nested.setter
-    def nested(self, value):
-        self.__nested += [value]
-        
+    @fields.setter
+    def fields(self, value):
+        self.__fields += [value]
+
     def __str(self, n = 0):
         if n == 0:
-            res = f'class {self.class_name}: \n    '
-            if len(self.nested) == 0:
+            res = f'class {self.class_name}:\n' + ' '*4
+            if len(self.fields) == 0:
                 res += 'pass'
             else:
-                res += 'def __init__(self): \n        '
+                res += 'def __init__(self):\n' + ' '*8
         else:
-            res = f'self.{self.class_name} = {self.value}\n        '
-        if self.__nested:
-            for i in self.nested:
-                #print(i, 111111111111)
+            res = f'self.{self.class_name} = {self.value}\n' + ' '*8
+        if self.__fields:
+            for i in self.fields:
                 res += i.__str(n + 1)
-        #res += f'{self.value}'
-        
         return res
 
     def __str__(self):
@@ -49,19 +46,20 @@ class HTMLBuilder:
             raise TypeError('Не те параметры')
 
     def add_field(self, name: str, value: str = ''):
-        word = ClassText(name, value)
-        self.root.nested = word
+        field = ClassText(name, value)
+        self.root.fields = field
         return self
 
-    def bulid(self):
+    def build(self):
         return self.root
 
-text = ClassText.create('ClassName').add_field('name', 'Сергей').add_field('number', '1').add_field('age', '3')
 
-print(text.bulid())
+text = ClassText.create('ClassName')\
+                .add_field('name', 'Сергей')\
+                .add_field('number', '1')\
+                .add_field('age', '3')
+print(text.build())
 
 
-
-
-
+# ДОБАВИТЬ: закомментированную копию вывода программы в стандартный поток в результате выполнения
 

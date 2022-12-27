@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 
 
 class Dish(ABC):
-
     def __init__(self, title, cost) -> None:
         super().__init__()
         self.title = title
@@ -12,8 +11,8 @@ class Dish(ABC):
     def dish1(self):
         pass
 
-class Rassian_kitchen(Dish): 
 
+class RussianKitchen(Dish):
     def __init__(self, title, cost) -> None:
         super().__init__(title, cost)
 
@@ -22,8 +21,7 @@ class Rassian_kitchen(Dish):
         print(f'Цена {self.cost}')
 
 
-class Georgian_kitchen(Dish):
-
+class GeorgianKitchen(Dish):
     def __init__(self, title, cost) -> None:
         super().__init__(title, cost)
 
@@ -31,18 +29,22 @@ class Georgian_kitchen(Dish):
         print(f'Блюдо грузинской кухни {self.title} готово')
         print(f'Цена {self.cost}')
 
+
 class Factory(ABC):
     @abstractmethod
     def create_dish(self):
         pass
 
+
 class RFactory(Factory):
     def create_dish(self, title, cost):
-        return Rassian_kitchen(title, cost).dish1()
+        return RussianKitchen(title, cost).dish1()
+
 
 class GFactory(Factory):
     def create_dish(self, title, cost):
-        return Georgian_kitchen(title, cost).dish1()
+        return GeorgianKitchen(title, cost).dish1()
+
 
 f = RFactory()
 f.create_dish('Борщ', '200')
@@ -55,3 +57,4 @@ f.create_dish('Шашлык', '500')
 Цена 200
 Блюдо грузинской кухни Шашлык готово
 Цена 500'''
+
