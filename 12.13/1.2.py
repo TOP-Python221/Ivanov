@@ -1,4 +1,5 @@
 # ДОБАВИТЬ здесь и далее: документацию для классов, свойств и методов (кроме специальных)
+
 class HTMLTag:
     default_indent_spaces: int = 2
 
@@ -7,8 +8,12 @@ class HTMLTag:
         self.attributes = ''
         if kwargs:
             for i in kwargs:
+                # УДАЛИТЬ: нет смысла создавать перезаписываемый в цикле атрибут для временного значения
                 self.i = kwargs[i]
+                # ИСПРАВИТЬ: f-строка при вычислении всегда возвращает объект str — зачем дополнительное преобразование?
                 self.attributes += str(f' {i}="{self.i}" ')
+        # ИСПОЛЬЗОВАТЬ: и вообще, пять строк кода из-за такой ерунды — это расточительство
+        self.attributes = ''.join(f' {k}="{v}"' for k, v in kwargs.items())
         self.value = value
         self.__nested: list[HTMLTag] = []
 
@@ -63,6 +68,7 @@ class HTMLBuilder:
 
 
 root = HTMLTag.create('div')
+# ДОБАВИТЬ: многие HTML теги используют атрибут class, а в python это слово является зарезервированным — как с помощью строителя создать экземпляр HTMLTag с атрибутом class?
 root.sibling('li', 'File', scr='class_name', clas='hhhhhhhhhhh')\
     .sibling('li', 'Edit')\
     .sibling('li', 'view')\
@@ -74,3 +80,5 @@ print(div)
 
 # ДОБАВИТЬ: закомментированную копию вывода программы в стандартный поток в результате выполнения
 
+
+# ИТОГ: рекомендую обращать внимание на детали, в остальном неплохо — 4/5
