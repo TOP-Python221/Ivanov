@@ -26,7 +26,7 @@ class WordCounter:
         for word in text.split():
             self.__words[word] = self.__words.get(word, 0) + 1
             
-    def get_count(self, word: str) -> int:
+    def get_count(self, word: str):
         """Возвращает частоту переданного слова."""
         return self.__words.get(word, 0)
         
@@ -42,13 +42,12 @@ class Adapter():
 
     def process_text(self, text): # Реализация интерфейса обработчика, требуемого системой.
 
-        word = self.obj(text).get_all_words()
-        a = []
-        for i in sorted(word.items(), key=lambda item: item[1]):
-            a.append(i[0])
-      
-        return a
+        words = self.obj(text)
+        keys = words.get_all_words()
+        list_keys = [i for i in keys]
 
+      
+        return sorted(list_keys, key=lambda x: words.get_count(x))
         
 text = '''  Практический опыт показывает, что рамки и место обучения кадров способствует 
             повышению актуальности позиций, занимаемых участниками в отношении поставленных задач. 
