@@ -158,12 +158,11 @@ class Handler:
         self.pars = HTMLParser(self.html)
 
     def delet(self):
-        self.html = self.pars.delete_eol().html
-        return self.html
+        
+        return self.pars.delete_eol().html
 
     def optim(self):
-        self.html = self.pars.optimize_eol().html
-        return self.html
+        return self.pars.optimize_eol().html
 
 
     
