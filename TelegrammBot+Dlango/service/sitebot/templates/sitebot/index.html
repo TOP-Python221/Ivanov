@@ -1,0 +1,9 @@
+{% extends 'sitebot/base.html' %}
+
+{% block content %}
+    {% if us %}
+        {% for i in us %}
+            <p>{{i.id_tg_user}}</p>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
